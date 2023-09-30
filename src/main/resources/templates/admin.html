@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Администратор</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container">
+    <ul class="d-flex justify-content-between align-items-center">
+        <li class="mb-2">
+            <h1>Список пользователей</h1>
+        </li>
+        <li class="mt-2">
+            <a href="/" class="btn btn-primary mt-2 home-link">На главную</a>
+        </li>
+    </ul>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Логин</th>
+            <th>ФИО</th>
+            <th>Телефон</th>
+            <th>Email</th>
+            <th>Пароль</th>
+            <th>Роль</th>
+            <th>Действия</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.id}"></td>
+            <td th:text="${user.username}"></td>
+            <td th:text="${user.fio}"></td>
+            <td th:text="${user.phoneUser}"></td>
+            <td th:text="${user.emailUser}"></td>
+            <td th:text="${user.password}"></td>
+            <td th:text="${user.role}"></td>
+            <td>
+                <a th:href="@{/edit/{id}(id=${user.id})}"
+                   class="btn btn-primary btn-sm">Редактировать</a>
+                <a th:href="@{delete/{id}(id=${user.id})}"
+                   class="btn btn-danger btn-sm">Удалить</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Выбор авторизации или регистрации</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            max-width: 600px; /* Увеличение ширины формы */
+            padding: 30px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: bold;
+        }
+
+        /* Увеличение толщины текста в кнопках */
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 30px;
+            width: 100%;
+            font-weight: bold; /* Увеличение толщины текста */
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="password"] {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Авторизация</h2>
+    <div th:if="${error}" class="alert alert-danger">
+        Неверное имя пользователя или пароль.
+    </div>
+
+    <div th:if="${message}" class="alert alert-success">
+        Вы успешно вышли из системы.
+    </div>
+    <form th:action="@{/login}" th:object="${user}" th:method="post">
+        <label>Логин:</label>
+        <label>
+            <input type="text" th:field="*{username}" required>
+        </label>
+
+        <label>Пароль:</label>
+        <label>
+            <input type="password" th:field="*{password}" required>
+        </label>
+
+        <button type="submit">Войти</button>
+    </form>
+
+    <a th:href="@{/registration}">
+        <button type="submit">Регистрация</button>
+    </a>
+</div>
+</body>
+</html>

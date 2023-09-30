@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Грузоперевозки</title>
+    <link rel="stylesheet" href="/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-KyZXEAg3QhqLMpG8r+Jnujsl5+z0I5tUpzK9/zFp6O7U5lK31vnO/d0g06b4r5fP" crossorigin="anonymous">
+</head>
+<style>
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.7);
+    }
+
+    .modal-content {
+        background-color: #fff;
+        margin: 10% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        max-width: 600px;
+        text-align: center; /* Center-align content in the modal */
+    }
+
+    .close {
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: 10px;
+        cursor: pointer;
+    }
+
+    .order-form select {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    .home-link {
+        display: inline-block;
+        margin-top: 20px;
+        text-decoration: none;
+        background-color: #007bff;
+        color: #fff;
+        padding: 12px 24px; /* Увеличиваем вертикальный и горизонтальный отступ */
+        border-radius: 10px; /* Увеличиваем радиус границы для более округлого вида */
+        transition: background-color 0.3s;
+        font-weight: bold; /* Делаем текст жирным */
+    }
+
+    /* Стиль при наведении на ссылку */
+    .home-link:hover {
+        background-color: #0056b3;
+    }
+
+    #add_palitra img {
+        width: 68px;
+        height: 68px;
+        margin-right: 10px;
+    }
+
+    .centr-b {
+        display: block;
+        margin-left: auto;
+        margin-right: auto
+    }
+
+</style>
+<body>
+<header>
+    <h1>Профессиональные грузоперевозки</h1>
+
+    <div>
+        <h1>+375(33)3166660</h1>
+        <h3>Телефон для связи</h3>
+    </div>
+
+    <nav>
+        <ul id="ul1">
+            <li th:if="${auth}" id="auth-button1"><a th:href="@{/profile}"><img
+                    src="/items/profile_img.png"
+                    alt="Авторизация"></a>
+            </li>
+
+            <li th:if="${not_auth}" id="auth-button2"><a th:href="@{/login}"><img
+                    src="/items/login_img.png"
+                    alt="Авторизация"></a>
+            </li>
+
+            <li th:if="${auth}" id="logout">
+                <a th:href="@{/logout}"><img
+                        src="/items/logout_img.png"
+                        alt="Выйти"></a>
+            </li>
+        </ul>
+    </nav>
+
+</header>
+<div class="container">
+    <div class="content">
+        <div class="intro">
+            <h2>Добро пожаловать на наш сайт о грузоперевозках</h2>
+            <p>Мы предлагаем широкий спектр услуг по перевозке грузов различного типа и объема.</p>
+        </div>
+        <h3>Наши преимущества</h3>
+        <ul>
+            <li>Опытные водители и надежные автомобили</li>
+            <li>Гарантированная своевременная доставка</li>
+            <li>Конкурентные цены на услуги</li>
+            <li>Индивидуальный подход к каждому клиенту</li>
+        </ul>
+        <h3>Наши услуги</h3>
+        <ul>
+            <li>Доставка грузов по городу и регионам</li>
+            <li>Международные грузоперевозки</li>
+            <li>Специализированные перевозки (хрупкие, опасные грузы и др.)</li>
+            <li>Слежение за грузом в режиме реального времени</li>
+        </ul>
+    </div>
+</div>
+<div class="container">
+    <div class="content">
+        <h3>Просмотр транспорта с характеристиками</h3>
+        <div class="transport-card">
+            <img src="/items/gruzovik_img.png" alt="Грузовик">
+            <h4>Грузовик 1</h4>
+            <ul>
+                <li>Грузоподъемность: 10 тонн</li>
+                <li>Тип кузова: Крытый</li>
+                <li>Габариты: 6м x 2.5м x 2.5м</li>
+            </ul>
+        </div>
+        <div class="transport-card">
+            <img src="/items/gruzovik_img.png" alt="Грузовик">
+            <h4>Грузовик 2</h4>
+            <ul>
+                <li>Грузоподъемность: 10 тонн</li>
+                <li>Тип кузова: Крытый</li>
+                <li>Габариты: 6м x 2.5м x 2.5м</li>
+            </ul>
+        </div>
+        <div class="transport-card">
+            <img src="/items/gruzovik_img.png" alt="Грузовик">
+            <h4>Грузовик 3</h4>
+            <ul>
+                <li>Грузоподъемность: 10 тонн</li>
+                <li>Тип кузова: Крытый</li>
+                <li>Габариты: 6м x 2.5м x 2.5м</li>
+            </ul>
+        </div>
+
+
+        <div class="transport-card">
+            <img src="/items/furgon_img.png" alt="Фургон">
+            <h4>Фургон 1</h4>
+            <ul>
+                <li>Грузоподъемность: 3 тонны</li>
+                <li>Тип кузова: Фургон</li>
+                <li>Габариты: 4м x 1.8м x 1.8м</li>
+            </ul>
+        </div>
+        <div class="transport-card">
+            <img src="/items/furgon_img.png" alt="Фургон">
+            <h4>Фургон 2</h4>
+            <ul>
+                <li>Грузоподъемность: 3 тонны</li>
+                <li>Тип кузова: Фургон</li>
+                <li>Габариты: 4м x 1.8м x 1.8м</li>
+            </ul>
+        </div>
+        <div class="transport-card">
+            <img src="/items/furgon_img.png" alt="Фургон">
+            <h4>Фургон 3</h4>
+            <ul>
+                <li>Грузоподъемность: 3 тонны</li>
+                <li>Тип кузова: Фургон</li>
+                <li>Габариты: 4м x 1.8м x 1.8м</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="center-b">
+        <h3>Форма заказа</h3>
+        <div th:if="${auth}">
+            <button class="btn btn-primary mt-4 home-link" id="openModalBtn">Заказать</button>
+        </div>
+
+        <a th:if="${not_auth}" th:href="@{/login}">
+            <button class="btn btn-primary mt-4 home-link" type="submit">Заказать</button>
+        </a>
+    </div>
+</div>
+
+<div id="orderModal" class="modal">
+    <div class="modal-content">
+        <button class="close" id="closeModalBtn">&times;</button>
+        <h3>Форма для заказа</h3>
+        <form th:action="@{/create}" th:object="${order}" class="order-form" th:method="post">
+            <label th:field="*{description}" th:type="text" for="description">Описание:</label>
+            <textarea id="description" name="description" rows="4"></textarea>
+
+            <label th:field="*{address}" th:type="text" for="address">Адрес:</label>
+            <input type="text" id="address" name="address">
+
+            <button type="submit">Заказать</button>
+        </form>
+    </div>
+</div>
+
+<footer>
+    <div class="container">
+        <p>&copy; 2023 Грузоперевозки. Все права защищены.</p>
+    </div>
+</footer>
+
+<script>
+    const openModalBtn = document.getElementById("openModalBtn");
+    const orderModal = document.getElementById("orderModal");
+    const closeModalBtn = document.getElementById("closeModalBtn");
+
+    const isAuthenticated = false;
+
+    openModalBtn.onclick = function () {
+        if (isAuthenticated) {
+            orderModal.style.display = "block";
+        } else {
+            window.location.href = "/login";
+        }
+    };
+
+    openModalBtn.onclick = function () {
+        orderModal.style.display = "block";
+    };
+
+    closeModalBtn.onclick = function () {
+        orderModal.style.display = "none";
+    };
+
+    window.onclick = function (event) {
+        if (event.target == orderModal) {
+            orderModal.style.display = "none";
+        }
+    };
+</script>
+</body>
+</html>
